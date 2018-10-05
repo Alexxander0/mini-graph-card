@@ -97,15 +97,15 @@ class MiniGraphCard extends LitElement {
       ${this._style()}
       <ha-card ?group=${config.group} @click='${(e) => this._handleMore()}'
         ?more-info=${config.more_info}>
-        <div class='flex'>
-          <div class='icon'><ha-icon icon='${this.conf.icon}'></ha-icon></div>
+        <div class='flex wrap'>
           <div class='header'>
+            <div class='icon'><ha-icon icon='${this.conf.icon}'></ha-icon></div>
             <span class='name'>${name}</span>
           </div>
-        </div>
-        <div class='flex info'>
-          <span id='value'>${entity.state}</span>
-          <span id='measurement'>${this.conf.unit}</span>
+          <div class='info'>
+            <span id='value'>${entity.state}</span>
+            <span id='measurement'>${this.conf.unit}</span>
+          </div>
         </div>
         <div class='graph'>
           <div>
@@ -170,31 +170,36 @@ class MiniGraphCard extends LitElement {
           display: flex;
           display: -webkit-flex;
         }
+        .wrap {
+          flex-flow: wrap;
+        }
         .justify {
           justify-content: space-between;
           -webkit-justify-content: space-between;
         }
         .header {
+          align-items: center;
           display: flex;
           min-width: 0;
-          align-items: center;
-          position: relative;
           opacity: .8;
+          position: relative;
+          justify-content: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          min-width: 0;
           overflow: hidden;
         }
         .name {
-          display: inline-block;
-          flex: 1 0 60px;
+          display: block;
           font-size: 1.2rem;
           font-weight: bold;
-          max-height: 40px;
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
           opacity: .8;
-          word-wrap: break-word;
-          word-break: break-all;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          min-width: 0;
         }
         .icon {
           display: inline-block;
@@ -206,8 +211,12 @@ class MiniGraphCard extends LitElement {
           color: var(--paper-item-icon-color, #44739e);
         }
         .info {
-          margin: 20px 0 20px 8px;
-          flex-wrap: wrap;
+          display: flex;
+          justify-content: flex-end;
+          flex: 1;
+          flex-wrap: nowrap;
+          margin-left: auto;
+          align-items: center;
         }
         .info[small] {
           font-size: 1.2rem;
@@ -215,7 +224,6 @@ class MiniGraphCard extends LitElement {
         #value {
           font-size: 2.4rem;
           line-height: 2.4rem;
-          margin-bottom: .2rem;
           display: inline-block;
           margin-right: 4px;
         }
